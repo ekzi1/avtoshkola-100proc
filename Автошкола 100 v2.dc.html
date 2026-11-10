@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html{scroll-behavior:smooth;background:#1C1C1F}
+body{margin:0;background:#1C1C1F;color:#F2F2F2;font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#F5C518;text-decoration:none}
+a:hover{color:#FFD84A}
+input,select,button{font-family:inherit}
+::selection{background:#F5C518;color:#0A0A0B}
+input[type=range]{accent-color:#F5C518}
+@keyframes pulse{0%{transform:scale(1);opacity:.75}100%{transform:scale(2.6);opacity:0}}
+@keyframes lane{to{background-position:0 120px}}
+@keyframes grid{to{background-position:0 64px,0 0}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#1C1C1F;color:#F2F2F2;font-family:'Manrope',sans-serif;overflow-x:hidden">
+<div ref="{{ cursorGlowRef }}" aria-hidden="true" style="position:fixed;left:-300px;top:-300px;width:600px;height:600px;border-radius:50%;pointer-events:none;z-index:1;opacity:0;mix-blend-mode:screen;background:radial-gradient(closest-side,rgba(245,197,24,0.11),rgba(245,197,24,0.04) 55%,rgba(245,197,24,0) 100%);will-change:transform,opacity"></div>
+
+<div>
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:10px clamp(16px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;font-size:13px;color:#9A9AA0">
+    <span>г. Город, ул. Улица, д. 00, оф. 00</span>
+    
+  </div>
+</div>
+
+<header style="position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#1C1C1F 0%,rgba(28,28,31,0.94) 55%,rgba(28,28,31,0) 100%);margin-bottom:-24px">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:14px clamp(16px,4vw,40px) 38px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#top" style="display:flex;flex-direction:column;align-items:flex-start;gap:3px;line-height:1">
+      <span style="display:flex;align-items:center;font-family:'Unbounded',sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.02em;color:#FFFFFF">100<svg width="21" height="26" viewBox="0 0 60 74" style="margin-left:2px"><circle cx="15" cy="18" r="10.5" fill="none" stroke="#FFFFFF" stroke-width="8"></circle><circle cx="45" cy="56" r="10.5" fill="none" stroke="#FFFFFF" stroke-width="8"></circle><line x1="50" y1="3" x2="12" y2="71" stroke="#F5C518" stroke-width="9" stroke-linecap="square"></line></svg></span>
+      <span style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:8.5px;letter-spacing:0.34em;color:#FFFFFF">АВТОШКОЛА</span>
+    </a>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;gap:26px;font-size:14px;font-weight:600">
+        <a href="#services" style="color:#C9C9CE" style-hover="color:#F5C518">Услуги</a>
+        <a href="#path" style="color:#C9C9CE" style-hover="color:#F5C518">Обучение</a>
+        <a href="#price" style="color:#C9C9CE" style-hover="color:#F5C518">Стоимость</a>
+        <a href="#quiz" style="color:#C9C9CE" style-hover="color:#F5C518">Тест ПДД</a>
+        <a href="#reviews" style="color:#C9C9CE" style-hover="color:#F5C518">Отзывы</a>
+        <a href="#docs" style="color:#C9C9CE" style-hover="color:#F5C518">Сведения</a>
+        <a href="#contacts" style="color:#C9C9CE" style-hover="color:#F5C518">Контакты</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:20px">
+        <a href="tel:+79000000000" style="color:#F2F2F2;font-weight:700;font-size:15px;white-space:nowrap" style-hover="color:#F5C518">+7 900 000-00-00</a>
+        <a href="#signup" style="background:#F5C518;color:#0A0A0B;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:13px 20px;border-radius:10px;white-space:nowrap;box-shadow:0 0 24px rgba(245,197,24,0.35)" style-hover="background:#FFD84A;color:#0A0A0B">Записаться</a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Меню" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(245,197,24,0.5);background:#26262A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:0">
+        <span style="width:18px;height:2px;background:#F5C518;border-radius:2px"></span>
+        <span style="width:18px;height:2px;background:#F5C518;border-radius:2px"></span>
+        <span style="width:12px;height:2px;background:#F5C518;border-radius:2px;margin-left:6px"></span>
+      </button>
+    </sc-if>
+  </div>
+  <div style="position:absolute;left:0;bottom:-1px;height:2px;width:100%;pointer-events:none">
+    <div ref="{{ progRef }}" style="height:2px;width:0%;background:#F5C518;box-shadow:0 0 12px #F5C518"></div>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="border-top:1px solid rgba(255,255,255,0.06);padding:12px clamp(16px,4vw,40px) 24px;display:flex;flex-direction:column;background:#1C1C1F">
+      <a href="#services" onClick="{{ closeMenu }}" style="color:#F2F2F2;font-family:'Unbounded',sans-serif;font-size:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06)">Услуги</a>
+      <a href="#path" onClick="{{ closeMenu }}" style="color:#F2F2F2;font-family:'Unbounded',sans-serif;font-size:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06)">Обучение</a>
+      <a href="#price" onClick="{{ closeMenu }}" style="color:#F2F2F2;font-family:'Unbounded',sans-serif;font-size:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06)">Стоимость</a>
+      <a href="#quiz" onClick="{{ closeMenu }}" style="color:#F2F2F2;font-family:'Unbounded',sans-serif;font-size:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06)">Тест ПДД</a>
+      <a href="#reviews" onClick="{{ closeMenu }}" style="color:#F2F2F2;font-family:'Unbounded',sans-serif;font-size:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06)">Отзывы</a>
+      <a href="#docs" onClick="{{ closeMenu }}" style="color:#F2F2F2;font-family:'Unbounded',sans-serif;font-size:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06)">Сведения об организации</a>
+      <a href="#contacts" onClick="{{ closeMenu }}" style="color:#F2F2F2;font-family:'Unbounded',sans-serif;font-size:20px;padding:14px 0">Контакты</a>
+      <a href="tel:+79000000000" style="margin-top:12px;color:#F5C518;font-weight:800;font-size:20px">+7 900 000-00-00</a>
+    </div>
+  </sc-if>
+</header>
+
+<section id="top" data-screen-label="01 Hero" onMouseMove="{{ heroMove }}" style="position:relative;overflow:hidden;background:radial-gradient(120% 70% at 50% 100%,#2D2812 0%,#1C1C1F 60%)">
+  <div ref="{{ glowRef }}" style="position:absolute;inset:0;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 38%);mask-image:linear-gradient(180deg,transparent 0,#000 38%);background:radial-gradient(520px circle at 50% 35%,rgba(245,197,24,0.16),rgba(245,197,24,0) 65%)"></div>
+  <div style="position:absolute;left:-60%;right:-60%;bottom:-8%;height:58%;transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;-webkit-mask-image:linear-gradient(to top,#000 0%,#000 25%,transparent 88%);mask-image:linear-gradient(to top,#000 0%,#000 25%,transparent 88%);pointer-events:none">
+    <div style="{{ gridStyle }}"></div>
+    <div style="position:absolute;left:calc(50% - 31%);top:0;bottom:0;width:6px;background:rgba(255,255,255,0.45)"></div>
+    <div style="position:absolute;left:calc(50% + 31%);top:0;bottom:0;width:6px;background:rgba(255,255,255,0.45)"></div>
+    <div style="{{ laneStyle }}"></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(180deg,rgba(28,28,31,0) 0%,rgba(28,28,31,0.5) 50%,#1C1C1F 100%);pointer-events:none;z-index:1"></div>
+
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,4vw,40px) clamp(40px,5vw,64px);display:flex;flex-direction:column;align-items:center">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:clamp(8px,2vw,16px)">
+      <span style="border:1px solid #F5C518;color:#F5C518;font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;padding:8px 12px;border-radius:8px;background:rgba(245,197,24,0.08);white-space:nowrap">Категории B и C</span>
+      <span style="border:1px solid rgba(255,255,255,0.18);color:#C9C9CE;font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;padding:8px 12px;border-radius:8px;white-space:nowrap">Очно и онлайн</span>
+    </div>
+    <div ref="{{ bigRef }}" style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(76px,21vw,320px);line-height:0.82;max-width:100%;padding:0 clamp(8px,3vw,24px);box-sizing:border-box;letter-spacing:-0.07em;background:linear-gradient(180deg,#FFFFFF 0%,#CFCFD4 30%,#5A5A60 70%,#1A1A1D 100%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none;transition:transform .25s ease-out;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.6))">100<span style="background:linear-gradient(180deg,#FFE9A0 0%,#F5C518 45%,#6B5200 100%);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:0;padding-right:0.08em">%</span></div>
+    <div ref="{{ carRef }}" style="position:relative;width:min(92%,720px);aspect-ratio:720/270;margin-top:calc(-1 * clamp(30px,7vw,116px));transition:transform .3s ease-out">
+      <div style="position:absolute;left:4%;right:4%;bottom:-6%;height:34%;background:radial-gradient(closest-side,rgba(245,197,24,0.5),rgba(245,197,24,0));filter:blur(12px)"></div>
+      <div style="position:absolute;left:0;bottom:9%;width:50%;aspect-ratio:457/306;z-index:1">
+        <div style="position:absolute;left:8%;right:8%;bottom:-3%;height:16%;border-radius:50%;background:rgba(0,0,0,0.75);filter:blur(10px)"></div>
+        <img src="assets/car-logan.png" alt="Renault Logan автошколы 100%" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%;filter:brightness(0.82) contrast(1.05)">
+      </div>
+      <div style="position:absolute;right:0;bottom:0;width:64%;aspect-ratio:600/310;z-index:2">
+        <div style="position:absolute;left:6%;right:6%;bottom:-2%;height:16%;border-radius:50%;background:rgba(0,0,0,0.85);filter:blur(10px)"></div>
+        <img src="assets/car-sandero.png" alt="Renault Sandero автошколы 100%" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.55))">
+      </div>
+      <div style="position:absolute;left:8%;right:8%;bottom:-2px;height:3px;border-radius:3px;background:linear-gradient(90deg,transparent,#F5C518 20%,#FFE58A 50%,#F5C518 80%,transparent);box-shadow:0 0 24px 4px rgba(245,197,24,0.6);z-index:3"></div>
+    </div>
+
+    <div style="width:100%;margin-top:clamp(36px,5vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(16px,3vw,24px) 48px;align-items:end">
+      <h1 style="margin:0;max-width:20ch;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(19px,2.3vw,32px);line-height:1.2;letter-spacing:-0.01em;text-transform:uppercase;text-wrap:balance">Уверенность за&nbsp;рулём — <span style="color:#F5C518;text-shadow:0 0 40px rgba(245,197,24,0.45)">на&nbsp;100%</span></h1>
+      <div style="display:flex;flex-direction:column;gap:clamp(16px,2vw,22px)">
+        <p style="margin:0;font-size:clamp(15px,1.3vw,17px);line-height:1.55;color:#C9C9CE">Обучение с нуля до экзамена в ГИБДД за 3 месяца. Гибкий график вождения, автомобиль на экзамен, рассрочка без переплат.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="#signup" style="background:#F5C518;color:#0A0A0B;font-weight:800;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;padding:18px 28px;flex:1 1 auto;text-align:center;border-radius:12px;box-shadow:0 12px 40px rgba(245,197,24,0.35)" style-hover="background:#FFD84A;color:#0A0A0B;transform:translateY(-2px)">Записаться онлайн</a>
+          <a href="#price" style="border:1px solid rgba(255,255,255,0.2);color:#F2F2F2;font-weight:800;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;padding:18px 26px;flex:1 1 auto;text-align:center;border-radius:12px;background:rgba(255,255,255,0.03)" style-hover="border-color:#F5C518;color:#F5C518">Рассчитать цену</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="width:100%;margin-top:clamp(36px,5vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px">
+      <div style="background:linear-gradient(180deg,rgba(245,197,24,0.6),rgba(255,255,255,0.06));padding:1px;border-radius:14px">
+        <div style="background:#26262A;padding:22px;display:flex;align-items:center;gap:16px;border-radius:14px">
+          <span style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:34px;color:#F5C518;line-height:1">3</span>
+          <span style="font-size:14px;line-height:1.35;color:#C9C9CE">месяца<br>полный курс</span>
+        </div>
+      </div>
+      <div style="background:linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04));padding:1px;border-radius:14px">
+        <div style="background:#26262A;padding:22px;display:flex;align-items:center;gap:16px;border-radius:14px">
+          <span style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:34px;color:#F2F2F2;line-height:1">16+</span>
+          <span style="font-size:14px;line-height:1.35;color:#C9C9CE">принимаем<br>с 16 лет</span>
+        </div>
+      </div>
+      <div style="background:linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04));padding:1px;border-radius:14px">
+        <div style="background:#26262A;padding:22px;display:flex;align-items:center;gap:16px;border-radius:14px">
+          <span style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:34px;color:#F2F2F2;line-height:1">0%</span>
+          <span style="font-size:14px;line-height:1.35;color:#C9C9CE">рассрочка<br>без переплат</span>
+        </div>
+      </div>
+      <div style="background:linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.04));padding:1px;border-radius:14px">
+        <div style="background:#26262A;padding:22px;display:flex;align-items:center;gap:16px;border-radius:14px">
+          <span style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:22px;color:#F2F2F2;line-height:1.1">МКПП<br>АКПП</span>
+          <span style="font-size:14px;line-height:1.35;color:#C9C9CE">современный<br>автопарк</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,40px)"><div style="height:16px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,0.35) 0 1px,transparent 1px 80px),repeating-linear-gradient(90deg,rgba(255,255,255,0.14) 0 1px,transparent 1px 16px);background-size:100% 100%,100% 50%;background-position:0 0,0 100%;background-repeat:no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)"></div></div>
+
+<section id="services" data-screen-label="02 Services" style="scroll-margin-top:80px">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)">
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:12px clamp(20px,3vw,40px);align-items:end">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+        <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Чем мы <span style="font-weight:400;color:#9A9AA0">поможем</span></h2>
+      </div>
+      <p style="margin:0;color:#9A9AA0;font-size:15px;line-height:1.55;padding-left:2px">Нажмите на точки на автомобиле, чтобы узнать подробнее.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(20px,3vw,40px);align-items:center">
+      <div style="position:relative;aspect-ratio:16/10;min-width:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(closest-side,rgba(245,197,24,0.16),rgba(245,197,24,0) 70%)"></div>
+        <div style="position:absolute;inset:6% 2%;border-radius:16px;overflow:hidden">
+          <img src="assets/car-side.png" alt="Учебный автомобиль автошколы" style="width:100%;height:100%;object-fit:contain;display:block;filter:brightness(0.92) contrast(1.05)">
+        </div>
+        <sc-for list="{{ hotspots }}" as="h" hint-placeholder-count="6">
+          <button onClick="{{ h.select }}" aria-label="{{ h.title }}" style="{{ h.pos }}">
+            <span style="{{ h.ring }}"></span>
+            <span style="{{ h.dot }}">{{ h.n }}</span>
+            <sc-if value="{{ h.showLabel }}" hint-placeholder-val="{{ false }}">
+              <span style="position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);white-space:nowrap;background:#F5C518;color:#0A0A0B;font-size:12px;font-weight:800;letter-spacing:0.04em;padding:6px 10px;border-radius:6px;pointer-events:none">{{ h.title }}</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+        <div style="background:linear-gradient(160deg,rgba(245,197,24,0.7),rgba(255,255,255,0.06) 60%);padding:1px;border-radius:18px">
+          <div style="background:#26262A;padding:clamp(24px,3vw,36px);min-height:230px;display:flex;flex-direction:column;gap:16px;border-radius:18px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-family:'Unbounded',sans-serif;font-size:clamp(40px,5vw,60px);font-weight:800;line-height:1;color:#F5C518">0{{ hsActive.n }}</span>
+              <div style="display:flex;gap:8px">
+                <button onClick="{{ hsPrev }}" aria-label="Назад" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.18);background:transparent;color:#F2F2F2;cursor:pointer;font-size:18px" style-hover="border-color:#F5C518;color:#F5C518">←</button>
+                <button onClick="{{ hsNext }}" aria-label="Вперёд" style="width:44px;height:44px;border-radius:50%;border:none;background:#F5C518;color:#0A0A0B;cursor:pointer;font-size:18px" style-hover="background:#FFD84A">→</button>
+              </div>
+            </div>
+            <h3 style="margin:0;font-family:'Unbounded',sans-serif;font-size:clamp(20px,2vw,26px);font-weight:600;line-height:1.2">{{ hsActive.title }}</h3>
+            <p style="margin:0;color:#C9C9CE;font-size:16px;line-height:1.6">{{ hsActive.text }}</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span style="font-size:13px;color:#9A9AA0;padding:8px 0">Также:</span>
+          <span style="font-size:13px;font-weight:700;color:#C9C9CE;padding:8px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:8px">Дополнительные занятия</span>
+          <span style="font-size:13px;font-weight:700;color:#C9C9CE;padding:8px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:8px">Восстановление навыков</span>
+          <span style="font-size:13px;font-weight:700;color:#C9C9CE;padding:8px 12px;border:1px solid rgba(255,255,255,0.12);border-radius:8px">Подготовка после лишения</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="path" data-screen-label="03 Path" style="scroll-margin-top:80px;background:linear-gradient(180deg,#1C1C1F 0%,#232327 160px,#232327 calc(100% - 160px),#1C1C1F 100%)">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:clamp(32px,4vw,56px)">
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 48px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;align-items:center;gap:16px">
+          <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+          <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Путь <span style="font-weight:400;color:#9A9AA0">к правам</span></h2>
+        </div>
+      </div>
+      <p style="margin:0;color:#9A9AA0;font-size:16px;line-height:1.6;text-wrap:pretty">Программа утверждена Министерством образования РФ. В курс входят навыки первой помощи и управления стрессом на дороге.</p>
+    </div>
+
+    <div style="position:relative;padding:0 clamp(12px,3vw,24px)">
+      <div style="position:relative;height:64px;border-radius:14px;background:#18181B;border:1px solid rgba(255,255,255,0.08);overflow:hidden">
+        <div style="position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.5) 0 26px,transparent 26px 50px)"></div>
+        <div style="{{ roadFill }}"></div>
+      </div>
+      <div style="{{ markerStyle }}">
+        <svg width="56" height="30" viewBox="0 0 56 30"><path d="M4 24 C2.6 24 2 23 2 21.6 L2 20.6 C2 18.2 4 16.9 7.6 16.3 C9.6 13.2 11.4 10.4 13.4 8.4 C14.9 6.9 16.8 6 19 6 L35 6 C37.8 6 39.9 7 41.8 8.9 L47.4 14.7 C52 15.5 54.5 17.2 54.5 20.2 L54.5 22 C54.5 23.3 53.7 24 52.4 24 Z" fill="#F5C518"></path><path d="M16.6 9.2 C15.7 9.2 15.1 9.7 14.5 10.5 L11.9 15.3 L22 15.3 L22 9.2 Z M25 9.2 L34.8 9.2 C36.9 9.2 38.5 10 39.9 11.5 L43.4 15.3 L25 15.3 Z" fill="#0A0A0B" opacity="0.55"></path><circle cx="13" cy="24" r="5" fill="#0A0A0B" stroke="#F5C518" stroke-width="2"></circle><circle cx="43" cy="24" r="5" fill="#0A0A0B" stroke="#F5C518" stroke-width="2"></circle></svg>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+        <button onClick="{{ s.select }}" style="{{ s.btn }}">
+          <span style="font-family:'Unbounded',sans-serif;font-size:12px;letter-spacing:0.06em">ЭТАП {{ s.n }}</span>
+          <span style="font-size:clamp(14px,1.6vw,18px);font-weight:800">{{ s.t }}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:16px">
+      <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:12px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#F5C518">Этап {{ stepActive.n }} из 4</span>
+        <h3 style="margin:0;font-family:'Unbounded',sans-serif;font-size:clamp(22px,2.4vw,30px);font-weight:600">{{ stepActive.t }}</h3>
+        <p style="margin:0;color:#C9C9CE;font-size:16px;line-height:1.6">{{ stepActive.d }}</p>
+        <div style="display:flex;gap:10px;margin-top:6px">
+          <sc-if value="{{ stepHasNext }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ stepNext }}" style="border:none;background:#F5C518;color:#0A0A0B;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:14px 20px;border-radius:10px;cursor:pointer" style-hover="background:#FFD84A">Следующий этап →</button>
+          </sc-if>
+          <sc-if value="{{ stepIsLast }}" hint-placeholder-val="{{ false }}">
+            <a href="#signup" style="background:#F5C518;color:#0A0A0B;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:14px 20px;border-radius:10px" style-hover="background:#FFD84A;color:#0A0A0B">Начать обучение</a>
+          </sc-if>
+        </div>
+      </div>
+      <div style="position:relative;border-radius:20px;overflow:hidden;min-height:260px;background:#26262A;border:1px solid rgba(255,255,255,0.08)">
+        <sc-if value="{{ stepIs1 }}" hint-placeholder-val="{{ true }}"><image-slot id="path-photo" shape="rect" placeholder="Фото этапа «Теория»: учебный класс"></image-slot></sc-if>
+        <sc-if value="{{ stepIs2 }}" hint-placeholder-val="{{ false }}"><image-slot id="path-photo-2" shape="rect" placeholder="Фото этапа «Площадка»: автодром"></image-slot></sc-if>
+        <sc-if value="{{ stepIs3 }}" hint-placeholder-val="{{ false }}"><image-slot id="path-photo-3" shape="rect" placeholder="Фото этапа «Город»: вождение с инструктором"></image-slot></sc-if>
+        <sc-if value="{{ stepIs4 }}" hint-placeholder-val="{{ false }}"><image-slot id="path-photo-4" shape="rect" placeholder="Фото этапа «Экзамен»: выпускник с правами"></image-slot></sc-if>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="price" data-screen-label="04 Price" style="scroll-margin-top:80px;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-20%;top:0;width:70%;height:100%;background:radial-gradient(closest-side,rgba(245,197,24,0.12),rgba(245,197,24,0) 70%);pointer-events:none"></div>
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)">
+    <div data-reveal="" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+        <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Калькулятор <span style="font-weight:400;color:#9A9AA0">стоимости</span></h2>
+      </div>
+      <p style="margin:0;max-width:360px;color:#9A9AA0;font-size:15px;line-height:1.55">Учебная литература и бензин входят в стоимость. Можно оплатить материнским капиталом.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(16px,2.4vw,32px);align-items:stretch;padding:0 clamp(0px,4vw,64px)">
+      <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:clamp(28px,4.2vw,56px);display:flex;flex-direction:column;gap:36px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B4B4BA">Категория</span>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:6px;background:#1C1C1F;border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
+            <button onClick="{{ setCatB }}" style="{{ segCatB }}">B</button>
+            <button onClick="{{ setCatC }}" style="{{ segCatC }}">C</button>
+            <button onClick="{{ setCatBC }}" style="{{ segCatBC }}">B → C</button>
+          </div>
+        </div>
+        <sc-if value="{{ catIsB }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B4B4BA">Коробка передач</span>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:6px;background:#1C1C1F;border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
+              <button onClick="{{ setMKPP }}" style="{{ segMKPP }}">МКПП</button>
+              <button onClick="{{ setAKPP }}" style="{{ segAKPP }}">АКПП</button>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ catHasCalc }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+              <span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B4B4BA">Доп. занятия по вождению</span>
+              <span style="font-family:'Unbounded',sans-serif;font-size:24px;font-weight:600;color:#F5C518">{{ extra }} ч</span>
+            </div>
+            <input type="range" min="0" max="20" step="1" value="{{ extra }}" onChange="{{ setExtra }}" style="width:100%;height:28px;cursor:pointer">
+            <div style="display:flex;justify-content:space-between;font-size:14px;color:#8A8A92"><span>0</span><span>10</span><span>20</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B4B4BA">Оплата</span>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:6px;background:#1C1C1F;border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
+              <button onClick="{{ setPay1 }}" style="{{ segPay1 }}">Сразу</button>
+              <button onClick="{{ setPay3 }}" style="{{ segPay3 }}">3 мес.</button>
+              <button onClick="{{ setPay6 }}" style="{{ segPay6 }}">6 мес.</button>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ catIsBC }}" hint-placeholder-val="{{ false }}">
+          <p style="margin:0;color:#C9C9CE;font-size:16px;line-height:1.6">Стоимость обучения на категорию C и переподготовки с B на C зависит от группы и графика. Оставьте заявку — рассчитаем индивидуально.</p>
+        </sc-if>
+      </div>
+
+      <div style="background:linear-gradient(160deg,#F5C518,rgba(245,197,24,0.2) 55%,rgba(255,255,255,0.06));padding:1px;clip-path:polygon(0 0,calc(100% - 30px) 0,100% 30px,100% 100%,30px 100%,0 calc(100% - 30px));filter:drop-shadow(0 20px 50px rgba(245,197,24,0.18))">
+        <div style="height:100%;background:radial-gradient(120% 80% at 100% 0%,#2E2506 0%,#26262A 55%);padding:clamp(28px,4.2vw,56px);display:flex;flex-direction:column;justify-content:space-between;gap:32px;clip-path:polygon(0 0,calc(100% - 30px) 0,100% 30px,100% 100%,30px 100%,0 calc(100% - 30px))">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#F5C518">{{ calcTitle }}</span>
+            <sc-if value="{{ catHasCalc }}" hint-placeholder-val="{{ true }}">
+              <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(40px,5vw,60px);letter-spacing:-0.04em;line-height:1;margin-top:6px">{{ totalStr }} <span style="font-size:0.45em;color:#9A9AA0">₽</span></div>
+              <sc-if value="{{ isInstall }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:17px;line-height:1.5;color:#C9C9CE"><span style="color:#F2F2F2;font-weight:800">{{ monthlyStr }} ₽</span> в месяц · {{ pay }} платежа без процентов</span>
+              </sc-if>
+            </sc-if>
+            <sc-if value="{{ catIsBC }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(30px,3.6vw,44px);letter-spacing:-0.02em;line-height:1.1">Цена по запросу</div>
+            </sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;font-size:16px;line-height:1.4;color:#C9C9CE;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1)">
+            <span style="display:flex;gap:10px;align-items:center"><span style="color:#F5C518;font-weight:800">✓</span>Теория очно или онлайн</span>
+            <span style="display:flex;gap:10px;align-items:center"><span style="color:#F5C518;font-weight:800">✓</span>Вождение на площадке и в городе</span>
+            <span style="display:flex;gap:10px;align-items:center"><span style="color:#F5C518;font-weight:800">✓</span>Учебная литература и бензин</span>
+            <span style="display:flex;gap:10px;align-items:center"><span style="color:#F5C518;font-weight:800">✓</span>Автомобиль на экзамен в ГИБДД</span>
+          </div>
+          <a href="#signup" style="text-align:center;background:#F5C518;color:#0A0A0B;font-weight:800;font-size:15px;letter-spacing:0.08em;text-transform:uppercase;padding:22px;border-radius:12px" style-hover="background:#FFD84A;color:#0A0A0B">Записаться с этим расчётом</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" data-screen-label="05 Advantages" style="scroll-margin-top:80px;background:linear-gradient(180deg,#1C1C1F 0%,#232327 160px,#232327 calc(100% - 160px),#1C1C1F 100%)">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)">
+    <div data-reveal="" style="display:flex;align-items:center;gap:16px">
+      <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+      <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Почему <span style="font-weight:400;color:#9A9AA0">«100%»</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px">
+      <div style="grid-column:1 / -1;position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(120deg,#F5C518 0%,#DDA800 100%);padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;align-items:center;color:#0A0A0B">
+        <svg viewBox="0 0 600 300" aria-hidden="true" style="position:absolute;right:-4%;top:50%;transform:translateY(-50%);width:clamp(300px,42.86vw,600px);height:auto;overflow:visible;pointer-events:none"><defs><filter id="outline100" x="-5%" y="-10%" width="110%" height="120%"><feMorphology in="SourceAlpha" operator="dilate" radius="2" result="d"></feMorphology><feComposite in="d" in2="SourceAlpha" operator="out" result="o"></feComposite><feFlood flood-color="#0A0A0B" flood-opacity="0.18"></feFlood><feComposite in2="o" operator="in"></feComposite></filter></defs><text x="600" y="250" text-anchor="end" filter="url(#outline100)" style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:280px">100</text></svg>
+        <h3 style="position:relative;margin:0;font-family:'Unbounded',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:700;line-height:1.1;text-transform:uppercase">Учим водить,<br>а не только сдавать</h3>
+        <p style="position:relative;margin:0;font-size:17px;line-height:1.55;font-weight:600;color:#1F1800;max-width:460px">Практика в реальных городских условиях, чтобы после экзамена вы уверенно чувствовали себя за&nbsp;рулём.</p>
+      </div>
+      <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:40px;transition:transform .25s,border-color .25s" style-hover="transform:translateY(-4px);border-color:rgba(245,197,24,0.6)">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#F5C518" stroke-width="2"><circle cx="20" cy="13" r="6"></circle><path d="M8 34c1.5-7 6.5-10 12-10s10.5 3 12 10"></path></svg>
+        <span style="font-size:18px;font-weight:800;line-height:1.35">Опытные инструкторы и преподаватели</span>
+      </div>
+      <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:40px;transition:transform .25s,border-color .25s" style-hover="transform:translateY(-4px);border-color:rgba(245,197,24,0.6)">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#F5C518" stroke-width="2"><circle cx="20" cy="20" r="14"></circle><circle cx="20" cy="20" r="4"></circle><path d="M6 20h10M24 20h10M20 24v10"></path></svg>
+        <span style="font-size:18px;font-weight:800;line-height:1.35">Современные автомобили на МКПП и АКПП</span>
+      </div>
+      <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:40px;transition:transform .25s,border-color .25s" style-hover="transform:translateY(-4px);border-color:rgba(245,197,24,0.6)">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#F5C518" stroke-width="2"><rect x="6" y="8" width="28" height="20" rx="2"></rect><path d="M14 34h12M20 28v6M12 20l5-5 4 4 7-7"></path></svg>
+        <span style="font-size:18px;font-weight:800;line-height:1.35">Современные методики и онлайн-теория</span>
+      </div>
+      <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:40px;transition:transform .25s,border-color .25s" style-hover="transform:translateY(-4px);border-color:rgba(245,197,24,0.6)">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#F5C518" stroke-width="2"><rect x="6" y="10" width="28" height="22" rx="2"></rect><path d="M6 17h28M12 25h6"></path></svg>
+        <span style="font-size:18px;font-weight:800;line-height:1.35">Рассрочка 0% и оплата материнским капиталом</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" data-screen-label="06 Quiz" style="scroll-margin-top:80px;position:relative;overflow:hidden">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:clamp(28px,4vw,44px)">
+    <div data-reveal="" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 24px;align-items:end">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+        <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Проверь <span style="font-weight:400;color:#9A9AA0">себя</span></h2>
+      </div>
+      <p style="margin:0;color:#9A9AA0;font-size:16px;line-height:1.6;max-width:420px">Три вопроса из экзаменационных билетов ПДД. Узнайте, с чего начнёте обучение.</p>
+      <div style="display:flex;gap:6px;grid-column:2;grid-row:1 / span 2;align-self:end;padding-bottom:6px">
+        <sc-for list="{{ quizDots }}" as="d" hint-placeholder-count="3">
+          <span style="{{ d.style }}"></span>
+        </sc-for>
+      </div>
+    </div>
+    <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:clamp(22px,3vw,36px);display:flex;flex-direction:column;gap:18px;min-height:0">
+      <sc-if value="{{ quizRunning }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px clamp(28px,5vw,72px);align-items:center">
+        <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:15px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#F5C518">Вопрос {{ qNum }} из 3</span>
+        <h3 style="margin:0;font-size:clamp(20px,2.2vw,27px);font-weight:800;line-height:1.35">{{ qText }}</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ qOpts }}" as="o" hint-placeholder-count="3">
+            <button onClick="{{ o.pick }}" style="{{ o.style }}"><span style="{{ o.badge }}">{{ o.letter }}</span><span>{{ o.text }}</span></button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ qAnswered }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:4px;grid-column:1 / -1">
+            <span style="font-size:17px;color:#B4B4BA;line-height:1.5;flex:1;min-width:200px">{{ qHint }}</span>
+            <button onClick="{{ qNext }}" style="border:none;background:#F5C518;color:#0A0A0B;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:14px 20px;border-radius:10px;cursor:pointer" style-hover="background:#FFD84A">Дальше →</button>
+          </div>
+        </sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#F5C518">Результат</span>
+        <div style="font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(56px,8vw,96px);line-height:1;letter-spacing:-0.04em">{{ score }}<span style="color:#6E6E75">/3</span></div>
+        <p style="margin:0;color:#C9C9CE;font-size:16px;line-height:1.6">{{ scoreText }}</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto">
+          <a href="#signup" style="background:#F5C518;color:#0A0A0B;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:16px 22px;border-radius:10px" style-hover="background:#FFD84A;color:#0A0A0B">Записаться</a>
+          <button onClick="{{ qReset }}" style="border:1px solid rgba(255,255,255,0.18);background:transparent;color:#F2F2F2;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;padding:16px 22px;border-radius:10px;cursor:pointer" style-hover="border-color:#F5C518;color:#F5C518">Пройти ещё раз</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" data-screen-label="07 Reviews" style="scroll-margin-top:80px;background:linear-gradient(180deg,#1C1C1F 0%,#232327 160px,#232327 calc(100% - 160px),#1C1C1F 100%)">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) 0;display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)">
+    <div data-reveal="" style="padding:0 clamp(16px,4vw,40px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+        <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Отзывы <span style="font-weight:400;color:#9A9AA0">учеников</span></h2>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button onClick="{{ revPrev }}" aria-label="Назад" style="width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,0.18);background:transparent;color:#F2F2F2;cursor:pointer;font-size:20px" style-hover="border-color:#F5C518;color:#F5C518">←</button>
+        <button onClick="{{ revNext }}" aria-label="Вперёд" style="width:52px;height:52px;border-radius:50%;border:none;background:#F5C518;color:#0A0A0B;cursor:pointer;font-size:20px" style-hover="background:#FFD84A">→</button>
+      </div>
+    </div>
+    <div style="overflow:hidden;padding:80px 0;margin:-60px 0">
+      <div style="{{ revTrack }}">
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="5">
+          <div onClick="{{ r.select }}" style="{{ r.card }}">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="{{ r.avatar }}">{{ r.initial }}</span>
+                <span style="font-weight:800;font-size:17px">{{ r.name }}</span>
+              </div>
+              <span style="font-size:15px;letter-spacing:2px">★★★★★</span>
+            </div>
+            <p style="{{ r.p }}">{{ r.text }}</p>
+            <span style="{{ r.tag }}">{{ r.cat }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:8px">
+      <sc-for list="{{ revDots }}" as="d" hint-placeholder-count="5">
+        <button onClick="{{ d.select }}" aria-label="Отзыв" style="{{ d.style }}"></button>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" data-screen-label="08 Gallery" style="scroll-margin-top:80px">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)">
+    <div data-reveal="" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+        <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Галерея</h2>
+      </div>
+      <p style="margin:0;max-width:420px;color:#9A9AA0;font-size:15px;line-height:1.55">Автопарк, учебные классы, площадка и наши выпускники.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));grid-auto-rows:240px;gap:12px">
+      <div style="position:relative;border-radius:18px;overflow:hidden;background:#26262A;grid-row:span 2;border:1px solid rgba(255,255,255,0.06)"><image-slot id="gal-1" shape="rect" placeholder="Фото: выпускники с правами"></image-slot><span style="position:absolute;left:16px;bottom:16px;font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;pointer-events:none">Выпускники</span></div>
+      <div style="position:relative;border-radius:18px;overflow:hidden;background:#26262A;border:1px solid rgba(255,255,255,0.06)"><image-slot id="gal-2" shape="rect" placeholder="Фото: автопарк"></image-slot><span style="position:absolute;left:16px;bottom:16px;font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;pointer-events:none">Автопарк</span></div>
+      <div style="position:relative;border-radius:18px;overflow:hidden;background:#26262A;border:1px solid rgba(255,255,255,0.06)"><image-slot id="gal-3" shape="rect" placeholder="Фото: учебный класс"></image-slot><span style="position:absolute;left:16px;bottom:16px;font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;pointer-events:none">Класс</span></div>
+      <div style="position:relative;border-radius:18px;overflow:hidden;background:#26262A;border:1px solid rgba(255,255,255,0.06)"><image-slot id="gal-4" shape="rect" placeholder="Фото: площадка"></image-slot><span style="position:absolute;left:16px;bottom:16px;font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;pointer-events:none">Площадка</span></div>
+      <div style="position:relative;border-radius:18px;overflow:hidden;background:#26262A;border:1px solid rgba(255,255,255,0.06)"><image-slot id="gal-5" shape="rect" placeholder="Фото: инструктор"></image-slot><span style="position:absolute;left:16px;bottom:16px;font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;pointer-events:none">Инструкторы</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="signup" data-screen-label="09 Signup" style="scroll-margin-top:80px">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,40px) clamp(56px,8vw,112px)">
+    <div style="position:relative;overflow:hidden;border-radius:28px;background:radial-gradient(90% 120% at 100% 100%,#3B3004 0%,#26262A 55%);border:1px solid rgba(245,197,24,0.4);padding:clamp(26px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(28px,5vw,64px);align-items:center;box-shadow:0 30px 80px rgba(245,197,24,0.12)">
+      <svg viewBox="0 0 900 320" aria-hidden="true" style="position:absolute;right:-6%;bottom:-18%;width:clamp(450px,61.9vw,900px);height:auto;overflow:visible;pointer-events:none"><defs><filter id="outline100p" x="-5%" y="-10%" width="110%" height="120%"><feMorphology in="SourceAlpha" operator="dilate" radius="2" result="d"></feMorphology><feComposite in="d" in2="SourceAlpha" operator="out" result="o"></feComposite><feFlood flood-color="#F5C518" flood-opacity="0.18"></feFlood><feComposite in2="o" operator="in"></feComposite></filter></defs><text x="900" y="256" text-anchor="end" filter="url(#outline100p)" style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:320px">100%</text></svg>
+      <div style="position:relative;display:flex;flex-direction:column;gap:20px">
+        <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Запишитесь <span style="color:#F5C518">в&nbsp;группу</span></h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#C9C9CE">Оставьте номер — перезвоним, ответим на вопросы и подберём удобную группу.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;color:#9A9AA0;font-size:15px">
+          <span><span style="color:#F2F2F2;font-weight:700">Пн, Вт, Ср</span> — 11:00–13:00 и 18:00–20:00</span>
+          <span><span style="color:#F2F2F2;font-weight:700">Сб, Вс</span> — группа выходного дня 11:00–14:00</span>
+        </div>
+      </div>
+      <div style="position:relative">
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:12px">
+            <input placeholder="Ваше имя" required="" style="height:58px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(28,28,31,0.8);color:#F2F2F2;padding:0 18px;font-size:16px;outline:none" style-focus="border-color:#F5C518">
+            <input placeholder="+7 (___) ___-__-__" type="tel" required="" style="height:58px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(28,28,31,0.8);color:#F2F2F2;padding:0 18px;font-size:16px;outline:none" style-focus="border-color:#F5C518">
+            <div style="padding:14px 18px;border-radius:12px;border:1px dashed rgba(245,197,24,0.45);background:rgba(245,197,24,0.06);font-size:14px;color:#C9C9CE">Ваш расчёт: <span style="color:#F2F2F2;font-weight:800">{{ summary }}</span></div>
+            <button type="submit" style="height:62px;border-radius:12px;border:none;background:#F5C518;color:#0A0A0B;font-weight:800;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;margin-top:4px;box-shadow:0 12px 40px rgba(245,197,24,0.35)" style-hover="background:#FFD84A">Получить консультацию</button>
+            <span style="font-size:12px;line-height:1.5;color:#9A9AA0">Нажимая кнопку, вы соглашаетесь с <a href="#">политикой конфиденциальности</a>.</span>
+          </form>
+        </sc-if>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:14px;padding:32px;border-radius:16px;background:rgba(28,28,31,0.8);border:1px solid rgba(255,255,255,0.08)">
+            <span style="width:56px;height:56px;border-radius:50%;background:#F5C518;color:#0A0A0B;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800">✓</span>
+            <span style="font-family:'Unbounded',sans-serif;font-size:24px;font-weight:600">Заявка принята</span>
+            <span style="color:#C9C9CE;font-size:16px;line-height:1.55">Перезвоним в ближайшее время в рабочие часы.</span>
+            <button onClick="{{ reset }}" style="align-self:flex-start;background:none;border:none;color:#F5C518;font-weight:700;font-size:15px;cursor:pointer;padding:0">Отправить ещё одну</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="docs" data-screen-label="10 Docs" style="scroll-margin-top:80px;background:linear-gradient(180deg,#1C1C1F 0%,#232327 160px,#232327 calc(100% - 160px),#1C1C1F 100%)">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(28px,5vw,72px);align-items:start">
+    <div data-reveal="" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+        <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Сведения <span style="font-weight:400;color:#9A9AA0">об организации</span></h2>
+      </div>
+      <p style="margin:0;color:#9A9AA0;font-size:16px;line-height:1.6">Лицензия, образовательные программы, учебные планы и локальные акты автошколы в формате PDF.</p>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:15px;color:#C9C9CE;padding-top:8px">
+        <span>ИП Фамилия И.О.</span>
+        <span style="color:#9A9AA0">ОГРНИП 000000000000000 · ИНН 000000000000</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.1)">
+      <sc-for list="{{ docs }}" as="g" hint-placeholder-count="5">
+        <div style="border-bottom:1px solid rgba(255,255,255,0.1)">
+          <button onClick="{{ g.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:none;color:#F2F2F2;padding:22px 0;cursor:pointer;text-align:left;font-size:17px;font-weight:700"><span>{{ g.title }}</span><span style="{{ g.icon }}">+</span></button>
+          <sc-if value="{{ g.open }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:2px;padding-bottom:18px">
+              <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
+                <a href="#" style="display:flex;justify-content:space-between;gap:16px;padding:12px 16px;border-radius:10px;color:#C9C9CE;font-size:15px" style-hover="background:#18181B;color:#F5C518"><span>{{ it }}</span><span style="color:#9A9AA0;font-size:12px;font-weight:700">PDF</span></a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="contacts" data-screen-label="11 Contacts" style="scroll-margin-top:80px">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:clamp(56px,8vw,112px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:clamp(28px,4vw,48px)">
+    <div data-reveal="" style="display:flex;align-items:center;gap:16px">
+      <span style="width:5px;height:clamp(30px,4vw,48px);background:#F5C518;box-shadow:0 0 18px #F5C518"></span>
+      <h2 style="margin:0;font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(22px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;text-transform:uppercase">Контакты</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;align-content:start">
+        <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B4B4BA">Телефоны</span><a href="tel:+79000000000" style="color:#F2F2F2;font-size:20px;font-weight:800" style-hover="color:#F5C518">+7 900 000-00-00</a><a href="tel:+79000000001" style="color:#F2F2F2;font-size:20px;font-weight:800" style-hover="color:#F5C518">+7 900 000-00-01</a></div>
+        <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B4B4BA">Почта и соцсети</span><a href="mailto:info@avto100.ru" style="color:#F2F2F2;font-size:18px;font-weight:700" style-hover="color:#F5C518">info@avto100.ru</a><div style="display:flex;gap:8px;flex-wrap:wrap"><a href="#" style="padding:8px 14px;border:1px solid rgba(255,255,255,0.18);border-radius:8px;color:#F2F2F2;font-size:14px;font-weight:700" style-hover="border-color:#F5C518;color:#F5C518">ВКонтакте</a><a href="#" style="padding:8px 14px;border:1px solid rgba(255,255,255,0.18);border-radius:8px;color:#F2F2F2;font-size:14px;font-weight:700" style-hover="border-color:#F5C518;color:#F5C518">Telegram</a></div></div>
+        <div style="background:#26262A;border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px;grid-column:1 / -1"><span style="font-size:14px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B4B4BA">Адреса</span><span style="font-size:16px;line-height:1.5;font-weight:600">г. Город, ул. Улица, д. 00, оф. 00</span><span style="font-size:16px;line-height:1.5;font-weight:600">г. Город, пр. Проспект, д. 00, оф. 000</span></div>
+      </div>
+      <div style="position:relative;min-height:340px;border-radius:18px;overflow:hidden;background:#26262A;border:1px solid rgba(255,255,255,0.08)">
+        <image-slot id="map" shape="rect" placeholder="Карта (виджет Яндекс.Карт)"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:linear-gradient(180deg,#1C1C1F,#18181B 120px)">
+  <div style="position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:40px clamp(16px,4vw,40px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:3px;line-height:1">
+      <span style="display:flex;align-items:center;font-family:'Unbounded',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em;color:#FFFFFF">100<svg width="18" height="22" viewBox="0 0 60 74" style="margin-left:2px"><circle cx="15" cy="18" r="10.5" fill="none" stroke="#FFFFFF" stroke-width="8"></circle><circle cx="45" cy="56" r="10.5" fill="none" stroke="#FFFFFF" stroke-width="8"></circle><line x1="50" y1="3" x2="12" y2="71" stroke="#F5C518" stroke-width="9" stroke-linecap="square"></line></svg></span>
+      <span style="font-family:'Unbounded',sans-serif;font-weight:600;font-size:7.5px;letter-spacing:0.34em;color:#FFFFFF">АВТОШКОЛА</span>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:13px">
+      <a href="#" style="color:#9A9AA0" style-hover="color:#F2F2F2">Политика конфиденциальности</a>
+      <a href="#" style="color:#9A9AA0" style-hover="color:#F2F2F2">Пользовательское соглашение</a>
+      <span style="color:#6E6E75">© 2026 Автошкола «100%»</span>
+    </div>
+  </div>
+  <sc-if value="{{ showStickyBar }}" hint-placeholder-val="{{ false }}">
+    <div style="height:84px"></div>
+  </sc-if>
+</footer>
+
+<sc-if value="{{ showStickyBar }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:flex;gap:8px;padding:8px;background:rgba(20,20,22,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:16px">
+    <a href="tel:+79000000000" style="flex:1;display:flex;align-items:center;justify-content:center;height:52px;border-radius:10px;border:1px solid rgba(255,255,255,0.18);color:#F2F2F2;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Позвонить</a>
+    <a href="#signup" style="flex:1.4;display:flex;align-items:center;justify-content:center;height:52px;border-radius:10px;background:#F5C518;color:#0A0A0B;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Записаться</a>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;reviewsAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;mobileStickyBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const HS = [
+  { n: 1, x: 45.2, y: 52.6, title: 'Категории B и C', text: 'Подготовка водителей легковых и грузовых автомобилей по утверждённой программе: теория, площадка и город.' },
+  { n: 2, x: 36.6, y: 34, title: 'Теория очно или онлайн', text: 'ПДД, устройство автомобиля, основы управления и первая помощь — в компьютерном классе или дистанционно.' },
+  { n: 3, x: 88.4, y: 45, title: 'Гибкий график вождения', text: 'Утро, вечер или выходные — подстраиваемся под учёбу и работу.' },
+  { n: 4, x: 18.3, y: 62.3, title: 'Отработка на площадке', text: 'Все упражнения экзамена отрабатываем на закрытой площадке до автоматизма.' },
+  { n: 5, x: 76.9, y: 62.3, title: 'Автомобиль на экзамен', text: 'Сдаёте экзамен в ГИБДД на той же машине, на которой учились.' },
+  { n: 6, x: 7.8, y: 48, title: 'Сопровождение в ГИБДД', text: 'Помогаем с документами и записью на экзамен, сопровождаем до получения удостоверения.' },
+];
+const STEPS = [
+  { t: 'Теория', d: 'ПДД, устройство автомобиля, основы управления и юридическая грамотность. Занятия в компьютерном классе или онлайн, завершаются внутренним экзаменом.' },
+  { t: 'Площадка', d: 'Отработка упражнений экзамена на закрытой площадке: эстакада, параллельная парковка, разворот, заезд в бокс.' },
+  { t: 'Город', d: 'Вождение в реальном потоке по экзаменационным маршрутам с опытным инструктором.' },
+  { t: 'Экзамен', d: 'Теория и практика в ГИБДД на учебном автомобиле. Сопровождаем до получения водительского удостоверения.' },
+];
+const QUIZ = [
+  { q: 'Разрешён ли обгон на нерегулируемом пешеходном переходе?', o: ['Разрешён', 'Запрещён', 'Разрешён, если на переходе нет пешеходов'], a: 1, h: 'Обгон на пешеходных переходах запрещён — п. 11.4 ПДД.' },
+  { q: 'С какой максимальной скоростью можно двигаться в жилой зоне?', o: ['20 км/ч', '40 км/ч', '60 км/ч'], a: 0, h: 'В жилых зонах и на дворовых территориях — не более 20 км/ч, п. 10.2 ПДД.' },
+  { q: 'Минимальная остаточная глубина протектора летних шин легкового автомобиля?', o: ['1 мм', '1,6 мм', '4 мм'], a: 1, h: 'Для легковых автомобилей — 1,6 мм. Меньше — эксплуатация запрещена.' },
+];
+const REVIEWS = [
+  { name: 'Валерия', cat: 'КАТ. B · АКПП', text: 'Все экзамены сдала с первого раза. Всегда были на связи, быстро решали любые вопросы. Инструктор спокойно объяснял каждую ошибку и рисовал схемы.' },
+  { name: 'Матвей', cat: 'КАТ. B · МКПП', text: 'Перед каждым новым упражнением мы разбирали возможные ситуации. Учат не просто сдать экзамен, а безопасно ездить по городу.' },
+  { name: 'Андрей', cat: 'КАТ. B · МКПП', text: 'Инструктор ни разу не повысил голос — в машине с ним спокойно. Терпеливо объяснял ошибки и шёл навстречу с графиком.' },
+  { name: 'Екатерина', cat: 'КАТ. B · АКПП', text: 'Учат не только водить, но и видеть обстановку на дороге и чувствовать автомобиль. Появилась настоящая уверенность за рулём.' },
+  { name: 'Ярослав', cat: 'КАТ. C', text: 'Занятия организованы на высоком уровне. Получил все знания для уверенного вождения и уверенность в собственных силах.' },
+];
+const DOCS = [
+  { title: 'Основные документы', items: ['Лицензия на образовательную деятельность', 'Выписка из реестра лицензий', 'ОГРНИП', 'Заключение УМВД', 'Санитарно-эпидемиологическое заключение'] },
+  { title: 'Образовательные программы', items: ['Программа подготовки водителей категории «B»', 'Программа подготовки водителей категории «C»', 'Программа переподготовки с «B» на «C»'] },
+  { title: 'Учебные планы и расписание', items: ['Учебный план категории «B»', 'Учебный план категории «C»', 'Учебный план переобучения с «B» на «C»', 'Расписание теоретических занятий', 'Календарный учебный график'] },
+  { title: 'Локальные акты', items: ['Правила приёма обучающихся', 'Режим занятий обучающихся', 'Правила внутреннего распорядка', 'Положение об организации образовательного процесса', 'Положение о текущем контроле и аттестации', 'Положение о конфликте интересов'] },
+  { title: 'Материально-техническое обеспечение', items: ['Материально-технические условия', 'Транспортные средства', 'Педагогический состав', 'Мастера производственного обучения'] },
+];
+const BASE = { MKPP: 40000, AKPP: 43000 };
+const BASE_C = 65000, HOUR_C = 2000;
+const fmt = (n) => Math.round(n).toLocaleString('ru-RU').replace(/,/g, ' ');
+
+class Component extends DCLogic {
+  state = { w: typeof window !== 'undefined' ? window.innerWidth : 1280, menuOpen: false, hs: 0, step: 0, cat: 'B', kpp: 'AKPP', extra: 0, pay: 1, qi: 0, picked: null, score: 0, qDone: false, rev: 0, sent: false, open: [true, false, false, false, false] };
+  progRef = React.createRef(); glowRef = React.createRef(); bigRef = React.createRef(); carRef = React.createRef(); cursorGlowRef = React.createRef();
+  componentDidMount() {
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    this.onScroll = () => {
+      const h = document.documentElement; const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+      if (this.progRef.current) this.progRef.current.style.width = (p * 100).toFixed(2) + '%';
+    };
+    window.addEventListener('resize', this.onResize);
+    this.gx = innerWidth / 2; this.gy = innerHeight / 2; this.tx = this.gx; this.ty = this.gy; this.go = 0; this.to = 0;
+    this.onPtr = (e) => {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      this.tx = e.clientX; this.ty = e.clientY;
+      const t = e.target;
+      const off = !t.closest || t.closest('#top, #services, button, a, input, label, textarea, select, [role="button"]');
+      this.to = off ? 0 : 1;
+    };
+    this.onLeave = () => { this.to = 0; };
+    window.addEventListener('pointermove', this.onPtr, { passive: true });
+    document.addEventListener('mouseleave', this.onLeave);
+    const tick = () => {
+      this.gx += (this.tx - this.gx) * 0.12; this.gy += (this.ty - this.gy) * 0.12; this.go += (this.to - this.go) * 0.06;
+      const el = this.cursorGlowRef.current;
+      if (el) { el.style.transform = `translate3d(${this.gx}px,${this.gy}px,0)`; el.style.opacity = this.go.toFixed(3); }
+      this.raf = requestAnimationFrame(tick);
+    };
+    this.raf = requestAnimationFrame(tick);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.timer = setInterval(() => { if ((this.props.reviewsAutoplay ?? true) && !this.hover) this.setState(s => ({ rev: (s.rev + 1) % REVIEWS.length })); }, 6000);
+    if ('IntersectionObserver' in window) {
+      this.io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; this.io.unobserve(e.target); } }), { threshold: 0.15 });
+      document.querySelectorAll('[data-reveal]').forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(28px)'; el.style.transition = 'opacity .7s ease, transform .7s ease'; this.io.observe(el); });
+    }
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); window.removeEventListener('pointermove', this.onPtr); document.removeEventListener('mouseleave', this.onLeave); window.removeEventListener('resize', this.onResize); window.removeEventListener('scroll', this.onScroll); clearInterval(this.timer); this.io && this.io.disconnect(); }
+  heroMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const mx = (e.clientX - r.left) / r.width - 0.5, my = (e.clientY - r.top) / r.height - 0.5;
+    if (this.glowRef.current) this.glowRef.current.style.background = `radial-gradient(520px circle at ${e.clientX - r.left}px ${e.clientY - r.top}px,rgba(245,197,24,0.18),rgba(245,197,24,0) 65%)`;
+    if (this.bigRef.current) this.bigRef.current.style.transform = `translate(${mx * -24}px,${my * -12}px)`;
+    if (this.carRef.current) this.carRef.current.style.transform = `translate(${mx * 16}px,${my * 6}px)`;
+  };
+  seg(on) { return { border: 'none', cursor: 'pointer', padding: '16px 10px', borderRadius: 8, fontWeight: 800, fontSize: 16, letterSpacing: '0.04em', transition: 'background .2s,color .2s', background: on ? '#F5C518' : 'transparent', color: on ? '#1C1C1F' : '#C9C9CE', boxShadow: on ? '0 0 20px rgba(245,197,24,0.35)' : 'none' }; }
+  renderVals() {
+    const s = this.state, isMobile = s.w < 980, motion = this.props.heroMotion ?? true;
+    const hsA = HS[s.hs];
+    const hotspots = HS.map((h, i) => {
+      const on = i === s.hs;
+      return {
+        ...h, showLabel: false, select: () => this.setState({ hs: i }),
+        pos: { position: 'absolute', left: h.x + '%', top: h.y + '%', transform: 'translate(-50%,-50%)', width: 44, height: 44, padding: 0, border: 'none', background: 'none', cursor: 'pointer', zIndex: on ? 3 : 2 },
+        ring: { position: 'absolute', inset: 8, borderRadius: '50%', background: '#F5C518', animation: 'pulse 1.8s ease-out infinite', animationDelay: (i * 0.25) + 's' },
+        dot: { position: 'absolute', inset: on ? 4 : 8, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Unbounded,sans-serif', fontSize: 12, fontWeight: 700, transition: 'all .2s', background: on ? '#F5C518' : '#1C1C1F', color: on ? '#1C1C1F' : '#F5C518', border: '2px solid #F5C518', boxShadow: on ? '0 0 24px rgba(245,197,24,0.8)' : 'none' },
+      };
+    });
+    const pct = (s.step / (STEPS.length - 1)) * 100;
+    const steps = STEPS.map((st, i) => {
+      const on = i === s.step, done = i < s.step;
+      return { ...st, n: i + 1, select: () => this.setState({ step: i }), btn: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6, padding: '16px clamp(10px,1.6vw,20px)', borderRadius: 12, cursor: 'pointer', textAlign: 'left', transition: 'all .2s', minWidth: 0, background: on ? '#F5C518' : '#26262A', color: on ? '#1C1C1F' : (done ? '#F2F2F2' : '#9A9AA0'), border: on ? '1px solid #F5C518' : (done ? '1px solid rgba(245,197,24,0.5)' : '1px solid rgba(255,255,255,0.08)') } };
+    });
+    const total = s.cat === 'B' ? BASE[s.kpp] + s.extra * 1500 : s.cat === 'C' ? BASE_C + s.extra * HOUR_C : 0;
+    const q = QUIZ[s.qi];
+    const qOpts = q.o.map((t, i) => {
+      const answered = s.picked !== null, isRight = i === q.a, isPicked = i === s.picked;
+      let bc = 'rgba(255,255,255,0.1)', bg = '#0F0F11', badgeBg = 'rgba(255,255,255,0.06)', badgeC = '#C9C9CE';
+      if (answered && isRight) { bc = '#F5C518'; bg = 'rgba(245,197,24,0.12)'; badgeBg = '#F5C518'; badgeC = '#1C1C1F'; }
+      else if (answered && isPicked) { bc = '#E5484D'; bg = 'rgba(229,72,77,0.1)'; badgeBg = '#E5484D'; badgeC = '#1C1C1F'; }
+      return { text: t, letter: 'АБВ'[i], pick: () => { if (s.picked !== null) return; this.setState(st => ({ picked: i, score: st.score + (i === q.a ? 1 : 0) })); },
+        style: { display: 'flex', alignItems: 'center', gap: 14, width: '100%', textAlign: 'left', padding: '14px 16px', borderRadius: 12, cursor: answered ? 'default' : 'pointer', fontSize: 16, fontWeight: 600, color: '#F2F2F2', background: bg, border: '1px solid ' + bc, transition: 'all .2s', opacity: answered && !isRight && !isPicked ? 0.5 : 1 },
+        badge: { flex: '0 0 32px', width: 32, height: 32, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, background: badgeBg, color: badgeC } };
+    });
+    const cw = Math.min(s.w * 0.8, 400), gap = 20;
+    const reviews = REVIEWS.map((r, i) => {
+      const on = i === s.rev;
+      return { ...r, initial: r.name[0], select: () => this.setState({ rev: i }),
+        card: { flex: `0 0 ${cw}px`, minHeight: 300, borderRadius: 22, padding: 28, display: 'flex', flexDirection: 'column', gap: 20, cursor: 'pointer', transition: 'all .5s ease', background: on ? '#F5C518' : '#18181B', color: on ? '#1C1C1F' : '#F2F2F2', border: on ? '1px solid #F5C518' : '1px solid rgba(255,255,255,0.08)', transform: on ? 'scale(1)' : 'scale(0.9)', opacity: on ? 1 : 0.45, boxShadow: on ? '0 24px 60px rgba(245,197,24,0.3)' : 'none' },
+        avatar: { width: 44, height: 44, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Unbounded,sans-serif', fontWeight: 700, background: on ? '#1C1C1F' : '#F5C518', color: on ? '#F5C518' : '#1C1C1F' },
+        p: { margin: 0, fontSize: 16, lineHeight: 1.6, fontWeight: on ? 600 : 500, color: on ? '#1F1800' : '#C9C9CE', flex: 1 },
+        tag: { fontSize: 12, fontWeight: 800, letterSpacing: '0.1em', color: on ? '#1C1C1F' : '#F5C518' } };
+    });
+    const summary = s.cat === 'C' ? `Кат. C${s.extra ? ' · +' + s.extra + ' ч' : ''} · ${fmt(total)} ₽` : s.cat === 'B' ? `Кат. B · ${s.kpp === 'AKPP' ? 'АКПП' : 'МКПП'}${s.extra ? ' · +' + s.extra + ' ч' : ''} · ${fmt(total)} ₽` : (s.cat === 'C' ? 'Категория C' : 'Переподготовка B → C');
+    return {
+      isMobile, isDesktop: !isMobile, menuOpen: isMobile && s.menuOpen,
+      toggleMenu: () => this.setState(st => ({ menuOpen: !st.menuOpen })), closeMenu: () => this.setState({ menuOpen: false }),
+      progRef: this.progRef, glowRef: this.glowRef, bigRef: this.bigRef, carRef: this.carRef, cursorGlowRef: this.cursorGlowRef, heroMove: isMobile ? undefined : this.heroMove,
+      gridStyle: { position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(245,197,24,0.34) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.12) 1px,transparent 1px)', backgroundSize: '64px 64px,64px 64px', animation: motion ? 'grid 1.6s linear infinite' : 'none' },
+      laneStyle: { position: 'absolute', left: 'calc(50% - 5px)', top: 0, bottom: 0, width: 10, backgroundImage: 'repeating-linear-gradient(180deg,#F5C518 0 60px,transparent 60px 120px)', animation: motion ? 'lane 0.9s linear infinite' : 'none' },
+      hotspots, hsActive: hsA,
+      hsPrev: () => this.setState(st => ({ hs: (st.hs + HS.length - 1) % HS.length })), hsNext: () => this.setState(st => ({ hs: (st.hs + 1) % HS.length })),
+      steps, stepActive: { ...STEPS[s.step], n: s.step + 1 }, stepHasNext: s.step < STEPS.length - 1, stepIsLast: s.step === STEPS.length - 1, stepIs1: s.step === 0, stepIs2: s.step === 1, stepIs3: s.step === 2, stepIs4: s.step === 3,
+      stepNext: () => this.setState(st => ({ step: Math.min(STEPS.length - 1, st.step + 1) })),
+      roadFill: { position: 'absolute', left: 0, top: 0, bottom: 0, width: `calc(${pct}% * 0.92 + 4% + 90px)`, background: 'linear-gradient(90deg,rgba(245,197,24,0) 0%,rgba(245,197,24,0.3) calc(100% - 140px),rgba(245,197,24,0.16) calc(100% - 70px),rgba(245,197,24,0) 100%)', transition: 'width .6s cubic-bezier(.4,0,.2,1)' },
+      markerStyle: { position: 'absolute', top: 12, left: `calc(${pct}% * 0.92 + 4% - 28px)`, transition: 'left .6s cubic-bezier(.4,0,.2,1)', filter: 'drop-shadow(0 0 12px rgba(245,197,24,0.8))', pointerEvents: 'none' },
+      catIsB: s.cat === 'B', catNotB: s.cat !== 'B', catHasCalc: s.cat !== 'BC', catIsBC: s.cat === 'BC',
+      setCatB: () => this.setState({ cat: 'B' }), setCatC: () => this.setState({ cat: 'C' }), setCatBC: () => this.setState({ cat: 'BC' }),
+      segCatB: this.seg(s.cat === 'B'), segCatC: this.seg(s.cat === 'C'), segCatBC: this.seg(s.cat === 'BC'),
+      setMKPP: () => this.setState({ kpp: 'MKPP' }), setAKPP: () => this.setState({ kpp: 'AKPP' }), segMKPP: this.seg(s.kpp === 'MKPP'), segAKPP: this.seg(s.kpp === 'AKPP'),
+      extra: s.extra, setExtra: (e) => this.setState({ extra: +e.target.value }),
+      setPay1: () => this.setState({ pay: 1 }), setPay3: () => this.setState({ pay: 3 }), setPay6: () => this.setState({ pay: 6 }),
+      segPay1: this.seg(s.pay === 1), segPay3: this.seg(s.pay === 3), segPay6: this.seg(s.pay === 6),
+      pay: s.pay, isInstall: s.pay > 1, totalStr: fmt(total), monthlyStr: fmt(total / s.pay),
+      calcTitle: s.cat === 'B' ? `Категория B · ${s.kpp === 'AKPP' ? 'АКПП' : 'МКПП'}` : (s.cat === 'C' ? 'Категория C' : 'Переподготовка B → C'),
+      quizRunning: !s.qDone, quizDone: s.qDone, qNum: s.qi + 1, qText: q.q, qOpts, qAnswered: s.picked !== null, qHint: q.h,
+      qNext: () => this.setState(st => st.qi < QUIZ.length - 1 ? { qi: st.qi + 1, picked: null } : { qDone: true }),
+      qReset: () => this.setState({ qi: 0, picked: null, score: 0, qDone: false }),
+      quizDots: QUIZ.map((_, i) => ({ style: { width: 40, height: 4, borderRadius: 2, background: (s.qDone || i < s.qi || (i === s.qi && s.picked !== null)) ? '#F5C518' : (i === s.qi ? 'rgba(245,197,24,0.4)' : 'rgba(255,255,255,0.12)'), transition: 'background .3s' } })),
+      score: s.score,
+      scoreText: s.score === 3 ? 'Отличная база! Поможем быстро пройти курс и уверенно сдать экзамен в ГИБДД.' : s.score === 2 ? 'Хороший старт. Подтянем теорию и сразу перейдём к практике.' : 'Не страшно — именно для этого мы и учим. Начнём с основ.',
+      reviews, revTrack: { display: 'flex', gap, width: '100%', transition: 'transform .6s cubic-bezier(.4,0,.2,1)', transform: `translateX(calc(50% - ${cw / 2 + s.rev * (cw + gap)}px))` },
+      revPrev: () => this.setState(st => ({ rev: (st.rev + REVIEWS.length - 1) % REVIEWS.length })), revNext: () => this.setState(st => ({ rev: (st.rev + 1) % REVIEWS.length })),
+      revDots: REVIEWS.map((_, i) => ({ select: () => this.setState({ rev: i }), style: { width: i === s.rev ? 32 : 10, height: 10, borderRadius: 5, border: 'none', padding: 0, cursor: 'pointer', transition: 'all .3s', background: i === s.rev ? '#F5C518' : 'rgba(255,255,255,0.2)' } })),
+      summary, notSent: !s.sent, sent: s.sent,
+      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); }, reset: () => this.setState({ sent: false }),
+      docs: DOCS.map((g, i) => ({ ...g, open: s.open[i], toggle: () => this.setState(st => { const o = st.open.slice(); o[i] = !o[i]; return { open: o }; }),
+        icon: { width: 36, height: 36, flex: '0 0 36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 400, transition: 'transform .25s,background .25s', transform: s.open[i] ? 'rotate(45deg)' : 'none', background: s.open[i] ? '#F5C518' : 'transparent', color: s.open[i] ? '#1C1C1F' : '#F5C518', border: s.open[i] ? '1px solid #F5C518' : '1px solid rgba(245,197,24,0.5)' } })),
+      showStickyBar: isMobile && (this.props.mobileStickyBar ?? true),
+    };
+  }
+}
+</script>
+</body>
+</html>
